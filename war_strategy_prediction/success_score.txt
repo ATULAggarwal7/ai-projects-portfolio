@@ -1,0 +1,50 @@
+Success Score = 
+  Objective Achievement (0-50 points) +
+  Efficiency (0-30 points) + 
+  Speed (0-10 points) +
+  Strategic Impact (0-10 points)
+
+
+1. Objective Achievement (0-50 pts)
+if objective_fully_achieved: 50 points
+if objective_partially_achieved: 25 points  
+if objective_failed: 0 points
+if exceeded_objectives: +10 bonus
+
+2. Efficiency/Cost Effectiveness (0-30 pts)
+Based on Casualty Rate = (Casualties / Total Troops) × 100
+< 1% casualty rate: 30 points
+1-5% casualty rate: 25 points
+5-10% casualty rate: 20 points
+10-20% casualty rate: 15 points
+20-30% casualty rate: 10 points
+> 30% casualty rate: 5 points
+
+
+3. Speed/Duration (0-10 pts)
+Completed in 1 day or less: 10 points
+2-3 days: 8 points
+4-7 days: 6 points
+8-14 days: 4 points
+15+ days: 2 points
+
+
+4. Strategic Impact (0-10 pts)
+Decisive strategic victory: 10 points
+Major tactical advantage: 8 points
+Moderate gains: 6 points
+Minimal impact: 4 points
+No strategic value: 2 points
+
+
+🎖️ Military Success Categories:
+90-100: Exemplary Victory
+80-89: Decisive Success  
+70-79: Solid Victory
+60-69: Acceptable Outcome
+50-59: Pyrrhic Victory
+<50:  Costly/Unsuccessful
+
+
+
+  

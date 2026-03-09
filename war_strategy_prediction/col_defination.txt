@@ -1,0 +1,62 @@
+Column Definitions & Engineering Rationale
+This structure introduces new, more meaningful columns for an ML model.
+
+Feature Columns (What we know before the battle)
+war_name: Categorical. (Can be one-hot encoded). Helps capture doctrinal or technological differences between eras.
+
+altitude_m: Numerical. A crucial factor for fatigue, equipment performance, and tactics.
+
+terrain_type: Categorical. Engineered from terrain_code for better meaning.
+
+High Mountains (Kargil Terrain Code 1)
+
+Razor Ridge (Kargil Terrain Code 3)
+
+Flat Plains (1971 Terrain Code 1)
+
+Urban/Fortified (1971 Terrain Code 3)
+
+Marshland (1971 Terrain Code 4)
+
+Forests/Jungle (1971 Terrain Code 5)
+
+enemy_troops_ratio: Numerical. A critical new feature. Calculated as Pak_troops / Indian_troops. This tells the model the relative strength of the enemy faced, which is more informative than raw numbers. A lower ratio (e.g., Kargil: 0.15-0.4) means a numerically superior Indian force, but often in a tactically disadvantaged position.
+
+artillery_capability: Categorical. Engineered from artillery_code.
+
+Light
+
+Medium
+
+Heavy
+
+air_support_available: Binary (Yes/No). From air_support.
+
+primary_objective: Categorical. A new, crucial feature. The strategy is entirely dependent on the goal.
+
+Seize and Hold (Most Kargil battles)
+
+Rapid Advance (e.g., Jessore, Sylhet)
+
+Encirclement (e.g., Tangail, Bogra, Khulna)
+
+Capitulation (Dacca)
+
+Target Column (What we want to predict)
+strategy_category: Categorical. This is our target variable for a Multi-class Classification model. It's a consolidated list of all strategies from both wars.
+
+Performance Metric Columns (To define "Better Results")
+These are not features for prediction but are used to label the effectiveness of the chosen strategy. They will help us validate the model's recommendations.
+
+indian_casualties: Numerical. To be minimized.
+
+duration_days: Numerical. To be minimized.
+
+success_score: Numerical. To be maximized.
+
+efficiency_index: Numerical. A powerful new composite metric. This single score quantifies the "better result." It's calculated as:
+Efficiency Index = (Success_Score * 100) / (Indian_Casualties * Duration_Days)
+
+Why this works: It heavily penalizes strategies that cause high casualties and take a long time, even if they are successful. A high index means a quick, low-cost, high-success operation—exactly what we want.
+
+Example: Point 5140 (Silent Night Attack) has a very high index (743.0), while Hilli (Direct Assault) has a very low one (1.97).

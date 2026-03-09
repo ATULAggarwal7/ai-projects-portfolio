@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+
+# Environment
+venv/
+.env
+
+# Models
+*.pt
+*.pth
+*.bin
+*.onnx
+*.safetensors
+*.ckpt
+
+# datasets
+datasets/
+data/
+
+# logs
+*.log
+logs/
+
+# Jupyter
+.ipynb_checkpoints

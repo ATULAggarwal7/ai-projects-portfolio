@@ -1,0 +1,17 @@
+battle_name,war_name,altitude_m,terrain_type,enemy_troops_ratio,artillery_capability,air_support_available,primary_objective,strategy_category,indian_casualties,indian_troops,duration_days,success_score
+Garibpur,1971 War,20,Flat Plains,0.8,Light,Yes,Seize and Hold,Flanking/Surprise,28,1000,0.5,95
+Hilli,1971 War,40,Urban/Fortified,0.83,Medium,Yes,Seize and Hold,Direct Assault,500,3000,15,32
+Jessore-Entry,1971 War,10,Marshland,0.8,Light,Yes,Rapid Advance,Flanking/Deception,100,5000,4,78
+Tangail Airdrop,1971 War,20,Flat Plains,0.86,Light,Yes,Encirclement,Airborne Encirclement,2,700,1,98
+Bogra–Rangpur,1971 War,50,Forests/Jungle,0.83,Light,Yes,Encirclement,Encirclement,200,3000,7,65
+Sylhet–Meghna Crossing,1971 War,30,Urban/Fortified,0.75,Light,Yes,Rapid Advance,Airmobile/Helilift,50,1600,5,82
+Khulna,1971 War,10,Marshland,0.87,Light,Yes,Encirclement,Naval Encirclement,50,1500,1,88
+Dacca/Capitulation,1971 War,10,Marshland,0.83,Medium,Yes,Capitulation,Psychological/Blitz,10,30000,2,96
+Tiger Hill,Kargil War,5065,High Mountains,0.15,Heavy,Yes,Seize and Hold,Frontal Assault,55,1000,36,48
+Tololing,Kargil War,4800,High Mountains,0.15,Heavy,No,Seize and Hold,Combined Arms Siege,43,800,14,62
+Point 4875,Kargil War,4875,Razor Ridge,0.4,Light,No,Seize and Hold,Frontal Assault,18,100,3,72
+Khalubar,Kargil War,5300,High Mountains,0.33,Light,No,Seize and Hold,Frontal Assault,22,120,7,68
+Point 5140,Kargil War,5140,High Mountains,0.3,Light,No,Seize and Hold,Silent Night Attack,5,100,1,95
+Point 5100,Kargil War,5100,High Mountains,0.4,Medium,No,Seize and Hold,Flanking Maneuver,14,100,4,76
+Twin Peaks,Kargil War,5000,High Mountains,0.33,Medium,No,Seize and Hold,Flanking Maneuver,12,120,3,82
+Jubar Complex,Kargil War,4800,High Mountains,0.33,Medium,No,Seize and Hold,Combined Arms Siege,25,150,16,58
