@@ -1,0 +1,5 @@
+pandas
+pydub
+TTS
+tkcalendar
+python-dateutil

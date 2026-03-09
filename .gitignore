@@ -2,9 +2,10 @@
 __pycache__/
 *.pyc
 
-# Environment
+# virtual environments
+tts_env/
 venv/
-.env
+env/
 
 # Models
 *.pt
