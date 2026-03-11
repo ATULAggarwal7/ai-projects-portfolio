@@ -1,0 +1,16 @@
+## Model Download
+
+The trained segmentation model is too large to store directly in this repository.
+
+You can download the model from Kaggle:
+
+https://www.kaggle.com/models/atulaggarwal07/segmentation-model-for-satellite-images
+
+After downloading, place the file in the following folder:
+
+satellite-image-segmentation/
+│
+├── model
+│   └── segmentation_model.pth
+├── inference.py
+└── data
