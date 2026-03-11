@@ -38,7 +38,7 @@ Sensor (DHT11) → Arduino → Python Server → Data Storage → Web Dashboard 
 
 The following image shows the **Arduino and DHT11 sensor connection setup**.
 
-![Arduino DHT11 Setup](Arduino_Code/setup.jpg)
+![Arduino DHT11 Setup](Arduino_Code/Setup.jpg)
 
 *(Make sure the image filename matches your uploaded picture name.)*
 
