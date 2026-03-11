@@ -1,0 +1,17 @@
+{
+  "English": "eng_Latn",
+  "Hindi": "hin_Deva",
+  "French": "fra_Latn",
+  "Spanish": "spa_Latn",
+  "German": "deu_Latn",
+  "Chinese": "zho_Hans",
+  "Arabic": "arb_Arab",
+  "Bengali": "ben_Beng",
+  "Tamil": "tam_Taml",
+  "Telugu": "tel_Telu",
+  "Marathi": "mar_Deva",
+  "Gujarati": "guj_Gujr",
+  "Urdu": "urd_Arab",
+  "Russian": "rus_Cyrl",
+  "Japanese": "jpn_Jpan"
+}

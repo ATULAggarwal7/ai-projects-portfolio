@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Translation Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h1 class="glow">Live Translation System</h1>
+
+  <!-- Feature Selection -->
+  <div class="features">
+    <button onclick="selectFeature('text_to_text')">Text to Text</button>
+    <button onclick="selectFeature('text_to_speech')">Text to Speech</button>
+    <button onclick="selectFeature('speech_to_text')">Speech to Text</button>
+    <button onclick="selectFeature('speech_to_speech')">Speech to Speech</button>
+  </div>
+
+  <!-- Language Selection -->
+  <div id="language-selection" class="fade-in">
+    <h2 id="selected-feature-title"></h2>
+    <label>Source Language:
+      <select id="source-lang">
+        {% for lang in languages %}
+          <option value="{{ lang }}">{{ lang }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Target Language:
+      <select id="target-lang">
+        {% for lang in languages %}
+          <option value="{{ lang }}">{{ lang }}</option>
+        {% endfor %}
+      </select>
+    </label>
+  </div>
+
+  <!-- Text to Text Section -->
+  <div id="text-to-text-section" class="feature-section">
+    <textarea id="source-text" rows="5" placeholder="Type your text..."></textarea><br>
+    <button id="translate-btn" onclick="translateText()">Translate</button>
+    <p id="loading" class="pulse-text">Translating...</p>
+    <h3 id="translated-output"></h3>
+  </div>
+
+  <!-- Text to Speech Section -->
+  <div id="text-to-speech-section" class="feature-section">
+    <textarea id="tts-input" rows="5" placeholder="Type text for speech..."></textarea><br>
+    <button id="tts-btn" onclick="ttsTranslate()">Translate + Speak</button>
+    <p id="tts-loading" class="pulse-text">Translating and generating speech...</p>
+    <h3 id="tts-output"></h3>
+    <audio id="tts-audio" controls></audio>
+  </div>
+
+  <!-- Speech to Text Section -->
+  <div id="speech-to-text-section" class="feature-section">
+    <button id="record-stt-btn" onclick="recordAndTranslate()">🎤 Start Recording</button>
+    <p id="speech-status"></p>
+    <h4 id="recognized-text"></h4>
+    <h3 id="speech-translated-output"></h3>
+  </div>
+
+  <!-- Speech to Speech Section -->
+  <div id="speech-to-speech-section" class="feature-section">
+    <button id="s2s-record-btn" onclick="recordSpeechToSpeech()">🎙️ Start Voice Input</button>
+    <p id="s2s-status"></p>
+    <h4 id="s2s-recognized-text"></h4>
+    <h3 id="s2s-translated-text"></h3>
+    <audio id="s2s-audio" controls></audio>
+  </div>
+
+  <script >
+    function selectFeature(feature) {
+  const titleMap = {
+    text_to_text: "Text to Text Translation",
+    text_to_speech: "Text to Speech Translation",
+    speech_to_text: "Speech to Text Translation",
+    speech_to_speech: "Speech to Speech Translation"
+  };
+
+  document.getElementById("selected-feature-title").innerText = titleMap[feature];
+  document.getElementById("language-selection").style.display = "block";
+
+  const sections = [
+    "text-to-text-section",
+    "text-to-speech-section",
+    "speech-to-text-section",
+    "speech-to-speech-section"
+  ];
+  sections.forEach(id => {
+    document.getElementById(id).style.display = "none";
+  });
+
+  const selectedId = feature.replace(/_/g, '-') + "-section";
+  const selectedSection = document.getElementById(selectedId);
+  if (selectedSection) {
+    selectedSection.style.display = "block";
+  }
+}
+
+async function translateText() {
+  const text = document.getElementById("source-text").value;
+  const source_lang = document.getElementById("source-lang").value;
+  const target_lang = document.getElementById("target-lang").value;
+
+  const loading = document.getElementById("loading");
+  const output = document.getElementById("translated-output");
+
+  loading.style.display = "block";
+  output.innerText = "";
+
+  const res = await fetch("/translate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text, source_lang, target_lang })
+  });
+
+  const data = await res.json();
+  loading.style.display = "none";
+  output.innerText = "Translated: " + data.translated_text;
+}
+
+async function ttsTranslate() {
+  const text = document.getElementById("tts-input").value;
+  const source_lang = document.getElementById("source-lang").value;
+  const target_lang = document.getElementById("target-lang").value;
+
+  const loading = document.getElementById("tts-loading");
+  const output = document.getElementById("tts-output");
+  const audio = document.getElementById("tts-audio");
+
+  loading.style.display = "block";
+  output.innerText = "";
+  audio.style.display = "none";
+
+  const res = await fetch("/tts", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text, source_lang, target_lang })
+  });
+
+  const data = await res.json();
+  loading.style.display = "none";
+  output.innerText = "Translated: " + data.translated_text;
+  audio.src = data.audio_file;
+  audio.style.display = "block";
+  audio.play();
+}
+
+async function recordAndTranslate() {
+  const status = document.getElementById("speech-status");
+  const transcript = document.getElementById("recognized-text");
+  const translated = document.getElementById("speech-translated-output");
+
+  status.innerText = "🎙️ Recording...";
+  translated.innerText = "";
+  transcript.innerText = "";
+
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  const mediaRecorder = new MediaRecorder(stream);
+  let chunks = [];
+
+  mediaRecorder.ondataavailable = (e) => {
+    chunks.push(e.data);
+  };
+
+  mediaRecorder.onstop = async () => {
+    const blob = new Blob(chunks, { type: "audio/webm" });
+    const formData = new FormData();
+    formData.append("audio", blob, "speech.webm");
+    formData.append("source_lang", document.getElementById("source-lang").value);
+    formData.append("target_lang", document.getElementById("target-lang").value);
+
+    status.innerText = "Translating...";
+    const res = await fetch("/speech_translate", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await res.json();
+    transcript.innerText = "You said: " + data.transcribed_text;
+    translated.innerText = "Translated: " + data.translated_text;
+    status.innerText = "";
+  };
+
+  mediaRecorder.start();
+  setTimeout(() => {
+    mediaRecorder.stop();
+    stream.getTracks().forEach(track => track.stop());
+  }, 5000);
+}
+
+async function recordSpeechToSpeech() {
+  const status = document.getElementById("s2s-status");
+  const transcriptBox = document.getElementById("s2s-recognized-text");
+  const translatedBox = document.getElementById("s2s-translated-text");
+  const audioBox = document.getElementById("s2s-audio");
+
+  status.innerText = "🎙️ Recording...";
+  transcriptBox.innerText = "";
+  translatedBox.innerText = "";
+  audioBox.style.display = "none";
+
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  const mediaRecorder = new MediaRecorder(stream);
+  let chunks = [];
+
+  mediaRecorder.ondataavailable = (e) => {
+    chunks.push(e.data);
+  };
+
+  mediaRecorder.onstop = async () => {
+    const blob = new Blob(chunks, { type: "audio/webm" });
+    const formData = new FormData();
+    formData.append("audio", blob, "s2s_input.webm");
+    formData.append("source_lang", document.getElementById("source-lang").value);
+    formData.append("target_lang", document.getElementById("target-lang").value);
+
+    status.innerText = "Translating...";
+
+    const res = await fetch("/speech_to_speech", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await res.json();
+
+    if (data.transcribed_text) {
+      transcriptBox.innerText = "You said: " + data.transcribed_text;
+    }
+
+    if (data.translated_text) {
+      translatedBox.innerText = "Translated: " + data.translated_text;
+    }
+
+    if (data.audio_file) {
+      audioBox.src = data.audio_file;
+      audioBox.style.display = "block";
+      audioBox.play();
+    }
+
+    status.innerText = "";
+    stream.getTracks().forEach(track => track.stop());
+  };
+
+  mediaRecorder.start();
+  setTimeout(() => {
+    mediaRecorder.stop();
+  }, 5000);
+}
+
+  </script>
+</body>
+</html>
