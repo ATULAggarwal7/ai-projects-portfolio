@@ -275,7 +275,7 @@ Contains the link to download the model required for the agent.
 ## 1️⃣ Clone the repository
 
 ```
-git clone https://github.com/yourusername/email-ai-agent.git
+git clone https://github.com/ATULAggarwal7/ai-projects-portfolio
 ```
 
 ```

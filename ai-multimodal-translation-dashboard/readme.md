@@ -52,7 +52,7 @@ ai-multimodal-translation-dashboard
 Clone the repository:
 
 ```
-git clone https://github.com/yourusername/ai-projects-portfolio.git
+git clone https://github.com/ATULAggarwal7/ai-projects-portfolio
 ```
 
 Navigate to the project folder:
