@@ -9,7 +9,7 @@ env/
 
 # Models
 *.pt
-*.pth
+# *.pth
 *.bin
 *.onnx
 *.safetensors
