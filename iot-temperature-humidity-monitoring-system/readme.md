@@ -40,8 +40,6 @@ The following image shows the **Arduino and DHT11 sensor connection setup**.
 
 ![Arduino DHT11 Setup](Arduino_Code/Setup.jpg)
 
-*(Make sure the image filename matches your uploaded picture name.)*
-
 ---
 
 ## Project Structure
@@ -104,7 +102,7 @@ Optional: To expose the dashboard to the internet, install Cloudflare Tunnel (cl
 Clone the repository:
 
 ```
-git clone https://github.com/yourusername/ai-projects-portfolio.git
+git clone https://github.com/ATULAggarwal7/ai-projects-portfolio
 ```
 
 Navigate to the project folder:
