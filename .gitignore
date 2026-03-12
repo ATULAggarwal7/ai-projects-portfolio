@@ -17,7 +17,7 @@ env/
 
 # datasets
 datasets/
-# data/
+data/
 
 # logs
 *.log
