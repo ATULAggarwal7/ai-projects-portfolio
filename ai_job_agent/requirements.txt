@@ -1,0 +1,7 @@
+langchain
+langgraph
+playwright==1.43.0
+sqlalchemy==2.0.29
+python-dotenv==1.0.1
+groq==0.5.0
+pypdf==4.2.0
